@@ -1,0 +1,45 @@
+<!-- <div class="sidebar-container">
+  <div class="profile-section text-center mb-4">
+    <img
+      [src]="profileImage"
+      alt="Profile"
+      class="profile-image rounded-circle mb-2"
+    />
+    <h5 class="profile-name">{{ profileName }}</h5>
+  </div>
+
+  <nav class="menu-section">
+    <div
+      *ngFor="let item of menuItems"
+      class="menu-item d-flex align-items-center py-3 px-3"
+      [class.active]="isActive(item.route, item.exact)"
+      (click)="navigateToRoute(item.route)"
+    >
+      <mat-icon class="menu-icon me-3">{{ item.icon }}</mat-icon>
+      <span class="menu-title">{{ item.title }}</span>
+    </div>
+  </nav>
+</div> -->
+
+<div class="sidebar-container">
+  <div class="profile-section text-center mb-4">
+    <img
+      [src]="profileImage"
+      alt="Profile"
+      class="profile-image rounded-circle mb-2"
+    />
+    <h5 class="profile-name">{{ profileName }}</h5>
+  </div>
+
+  <nav class="menu-section">
+    <div
+      *ngFor="let item of menuItems"
+      class="menu-item d-flex align-items-center py-3 px-3"
+      [class.active]="isActive(item.route, item.exact)"
+      (click)="navigateToRoute(item.route)"
+    >
+      <mat-icon class="menu-icon me-3">{{ item.icon }}</mat-icon>
+      <span class="menu-title">{{ item.title }}</span>
+    </div>
+  </nav>
+</div>
