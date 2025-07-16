@@ -1,0 +1,261 @@
+.filter-dropdown {
+    min-width: 150px;
+}
+
+.search-input {
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.search-input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.table th {
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table td {
+    vertical-align: middle;
+    border-bottom: 1px solid #f8f9fa;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+
+
+
+
+
+
+
+
+
+.font-monospace {
+    font-family: 'Courier New', monospace;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.dropdown-item {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown-item i {
+    width: 16px;
+}
+
+
+.modal {
+    z-index: 1055;
+}
+
+.modal.show {
+    display: block !important;
+    z-index: 1055;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    opacity: 0.5;
+}
+
+.modal-backdrop.show {
+    z-index: 1050;
+}
+
+.modal-dialog {
+    z-index: 1056;
+}
+
+.modal-content {
+    border-radius: 12px;
+    background: #ffffff;
+    position: relative;
+    z-index: 1055;
+}
+
+.modal-header {
+    padding: 1.5rem 1.5rem 0 1.5rem;
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    color: #212529;
+}
+
+.btn-close {
+    background-size: 1rem;
+    opacity: 0.6;
+    border: none;
+    background: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+.btn-close:hover {
+    opacity: 1;
+}
+
+.card-details-container {
+    padding: 0.5rem 0;
+}
+
+.detail-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.detail-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+    font-weight: 400;
+}
+
+.detail-value {
+    font-size: 1rem;
+    color: #212529;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background-color: #4f46e5;
+    border-color: #4f46e5;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: #4338ca;
+    border-color: #4338ca;
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.25);
+}
+
+/* Animation for modal */
+.modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out;
+    transform: translate(0, -50px);
+}
+
+.modal.show .modal-dialog {
+    transform: none;
+}
+
+.modal-backdrop.fade {
+    opacity: 0;
+    transition: opacity 0.15s linear;
+}
+
+
+.modal[style*="display: block"] {
+    z-index: 1055 !important;
+}
+
+.modal[style*="display: block"] .modal-dialog {
+    z-index: 1056 !important;
+}
+
+
+.custom-modal .modal-content {
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    padding: 0;
+    background: #fff;
+}
+
+.details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.details-table .label {
+    color: #7a7a7a;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 12px 0 12px 0;
+    width: 50%;
+}
+
+.details-table .value {
+    color: #222;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: right;
+    padding: 12px 0 12px 0;
+    width: 50%;
+}
+
+.details-table .divider-row td {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0;
+    height: 0;
+}
+
+.custom-close-btn {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: #ffe6ee;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e74c7c;
+    font-size: 22px;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: background 0.2s;
+}
+
+.custom-close-btn:hover {
+    background: #ffd6e6;
+}
+
+.block-btn {
+    background: #1a3276;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 16px;
+    border: none;
+    transition: background 0.2s;
+}
+
+.block-btn:hover {
+    background: #14245c;
+}
+
+.modal-header {
+    border-bottom: none !important;
+}
+
+.modal-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+}

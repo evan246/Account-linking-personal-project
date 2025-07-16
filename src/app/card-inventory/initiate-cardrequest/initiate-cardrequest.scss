@@ -1,0 +1,271 @@
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+}
+
+.custom-modal-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 2rem;
+    max-width: 480px;
+    width: 100%;
+    margin: 20px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.custom-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: color 0.2s;
+}
+
+.custom-modal-close:hover {
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+.form-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-title::before {
+    content: "←";
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.form-control,
+.form-select {
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    padding: 0.75rem 0.75rem;
+    background: #fff;
+    color: #333;
+    box-shadow: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #007bff;
+    background: #fff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+.form-control::placeholder {
+    color: #999;
+}
+
+.btn-next {
+    background: #2c5aa0;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+    padding: 0.75rem 2rem;
+    width: 100%;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-next:hover,
+.btn-next:focus {
+    background: #1e4080;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .custom-modal-card {
+        margin: 10px;
+        padding: 1.5rem;
+        max-width: calc(100vw - 20px);
+    }
+
+    .form-title {
+        font-size: 1.1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .profile-image-card {
+        width: 100px;
+    }
+
+    .profile-image {
+        width: 76px;
+        height: 76px;
+    }
+}
+
+@media (max-width: 576px) {
+    .profile-image-card {
+        width: 80px;
+    }
+
+    .profile-image {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+.upload-dropzone {
+    border: 2px dashed #bfc9da;
+    border-radius: 10px;
+    background: #f8faff;
+    padding: 1.5rem 1rem 1rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    transition: border-color 0.2s;
+}
+
+.upload-dropzone:hover {
+    border-color: #2c5aa0;
+}
+
+.upload-instructions {
+    font-size: 1rem;
+    color: #7a7a7a;
+    margin-bottom: 0.25rem;
+}
+
+.upload-link {
+    color: #2c5aa0;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.upload-info {
+    font-size: 0.85rem;
+    color: #b0b0b0;
+}
+
+.button-group.single-button {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 2rem;
+}
+
+.btn-activate {
+    background: #2c5aa0;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: none;
+    padding: 1rem 0;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(44, 90, 160, 0.08);
+    margin: 0;
+    transition: background 0.2s;
+}
+
+.btn-activate:hover,
+.btn-activate:focus {
+    background: #1e4080;
+    color: #fff;
+}
+
+.select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.select-wrapper .form-control {
+    padding-right: 2.5rem;
+    cursor: pointer;
+}
+
+.dropdown-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #b0b0b0;
+    pointer-events: none;
+}
+
+.radio-group {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.radio-inline {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: #333;
+    gap: 0.5rem;
+}
+
+.textarea-reason {
+    min-height: 80px;
+    max-height: 120px;
+    resize: vertical;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    padding: 0.75rem;
+    background: #fff;
+    color: #333;
+    box-shadow: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.textarea-reason:focus {
+    border-color: #2c5aa0;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(44, 90, 160, 0.08);
+}

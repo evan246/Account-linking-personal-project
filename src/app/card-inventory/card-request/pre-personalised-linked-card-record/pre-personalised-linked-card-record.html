@@ -1,0 +1,57 @@
+<div class="record-container">
+  <div
+    class="record-header d-flex justify-content-between align-items-center mb-4"
+  >
+    <input
+      type="text"
+      class="form-control search-bar"
+      placeholder="Search for customer"
+    />
+    <div class="d-flex gap-2">
+      <select class="form-select filter-select">
+        <option>Account Type</option>
+        <option>Savings</option>
+        <option>Current</option>
+        <option>Corporate</option>
+      </select>
+      <input type="date" class="form-control filter-date" />
+      <button class="btn btn-primary">Search</button>
+      <button class="btn btn-outline-secondary">
+        <i class="bi bi-download"></i>
+      </button>
+    </div>
+  </div>
+  <div class="record-table-wrapper">
+    <table class="table record-table">
+      <thead>
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th>Customer Name</th>
+          <th>Account Number</th>
+          <th>Account Type</th>
+          <th>Date of Issuance</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rows">
+          <td><input type="checkbox" /></td>
+          <td>{{ row.customerName }}</td>
+          <td>{{ row.accountNumber }}</td>
+          <td>{{ row.accountType }}</td>
+          <td>{{ row.dateOfIssuance }}</td>
+          <td>{{ row.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div
+    class="record-pagination d-flex justify-content-between align-items-center mt-3"
+  >
+    <span>1 out of 15</span>
+    <div class="d-flex gap-2">
+      <button class="btn btn-sm btn-outline-secondary">&lt;</button>
+      <button class="btn btn-sm btn-outline-secondary">&gt;</button>
+    </div>
+  </div>
+</div>

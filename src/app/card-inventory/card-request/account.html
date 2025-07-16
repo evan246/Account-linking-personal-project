@@ -1,0 +1,294 @@
+<!-- Loading State -->
+<div
+  *ngIf="isLoading"
+  class="d-flex justify-content-center align-items-center"
+  style="min-height: 400px"
+>
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div *ngIf="!isLoading" class="container-fluid py-4">
+  <div class="row">
+    <div class="col-12">
+      <!-- Header -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center">
+          <button
+            class="btn btn-link text-muted p-0 me-3"
+            style="font-size: 1.2rem"
+          >
+            ←
+          </button>
+          <h4 class="mb-0 text-dark fw-semibold">Account Information</h4>
+        </div>
+        <a
+          class="btn btn-outline-secondary initiate-btn"
+          [routerLink]="['/card-inventory/initiate-cardrequest']"
+        >
+          Initiate Card Request
+        </a>
+      </div>
+
+      <!-- Personal Information Section -->
+      <div class="row mb-4">
+        <div class="col-auto">
+          <div class="card profile-image-card">
+            <div class="card-body">
+              <img
+                src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=300"
+                alt="Profile Image"
+                class="profile-image"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Personal Information Card -->
+        <div class="col">
+          <div class="card personal-info-card">
+            <div class="card-body p-3">
+              <h6 class="personal-info-title mb-3">Personal Information</h6>
+              <div class="personal-details">
+                <div class="detail-row mb-2">
+                  <span class="detail-label">Full Name:</span>
+                  <span class="detail-value">Olaleayu Aderonke Rosaline</span>
+                </div>
+                <div class="detail-row mb-2">
+                  <span class="detail-label">Date of Birth:</span>
+                  <span class="detail-value">30th, December 1872</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Gender:</span>
+                  <span class="detail-value">Male</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Selection Card -->
+      <div class="card account-selection-main-card mb-4">
+        <div class="card-body p-4">
+          <h6 class="section-title mb-4">Kindly Select Account</h6>
+
+          <!-- Accounts Container with Blue Border -->
+          <div class="accounts-container">
+            <!-- First Row: Savings, Current, Dollar -->
+            <div class="row g-3 mb-3">
+              <!-- Savings Account Card -->
+              <div class="col-md-4">
+                <div
+                  class="card account-item-card h-100"
+                  [class.selected]="selectedAccountType === 'Savings'"
+                  (click)="selectAccountType('Savings')"
+                >
+                  <div class="card-body p-3 position-relative">
+                    <div class="radio-container">
+                      <input
+                        type="radio"
+                        [checked]="selectedAccountType === 'Savings'"
+                        class="form-check-input"
+                        name="accountSelection"
+                      />
+                    </div>
+                    <div class="account-content">
+                      <h6 class="account-title mb-3">Savings account</h6>
+                      <div class="account-details">
+                        <div class="detail-item mb-2">
+                          <span class="detail-label">Account Number:</span>
+                          <span class="detail-value">1234567890</span>
+                        </div>
+                        <div class="detail-item mb-2">
+                          <span class="detail-label">Account Opening:</span>
+                          <span class="detail-value">30th, Dec 1972</span>
+                        </div>
+                        <div class="detail-item">
+                          <span class="detail-label">Account Status:</span>
+                          <span class="status-badge status-active ms-2"
+                            >Active</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Current Account Card -->
+              <div class="col-md-4">
+                <div
+                  class="card account-item-card h-100"
+                  [class.selected]="selectedAccountType === 'Current'"
+                  (click)="selectAccountType('Current')"
+                >
+                  <div class="card-body p-3 position-relative">
+                    <div class="radio-container">
+                      <input
+                        type="radio"
+                        [checked]="selectedAccountType === 'Current'"
+                        class="form-check-input"
+                        name="accountSelection"
+                      />
+                    </div>
+                    <div class="account-content">
+                      <h6 class="account-title mb-3">Current account</h6>
+                      <div class="account-details">
+                        <div class="detail-item mb-2">
+                          <span class="detail-label">Account Number:</span>
+                          <span class="detail-value">1234567890</span>
+                        </div>
+                        <div class="detail-item mb-2">
+                          <span class="detail-label">Account Opening:</span>
+                          <span class="detail-value">30th, Dec 1972</span>
+                        </div>
+                        <div class="detail-item">
+                          <span class="detail-label">Account Status:</span>
+                          <span class="status-badge status-inactive ms-2"
+                            >Inactive</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Dollar Account Card -->
+              <div class="col-md-4">
+                <div
+                  class="card account-item-card h-100"
+                  [class.selected]="selectedAccountType === 'Dollar'"
+                  (click)="selectAccountType('Dollar')"
+                >
+                  <div class="card-body p-3 position-relative">
+                    <div class="radio-container">
+                      <input
+                        type="radio"
+                        [checked]="selectedAccountType === 'Dollar'"
+                        class="form-check-input"
+                        name="accountSelection"
+                      />
+                    </div>
+                    <div class="account-content">
+                      <h6 class="account-title mb-3">Dollar account</h6>
+                      <div class="account-details">
+                        <div class="detail-item mb-2">
+                          <span class="detail-label">Account Number:</span>
+                          <span class="detail-value">1234567890</span>
+                        </div>
+                        <div class="detail-item mb-2">
+                          <span class="detail-label">Account Opening:</span>
+                          <span class="detail-value">30th, Dec 1972</span>
+                        </div>
+                        <div class="detail-item">
+                          <span class="detail-label">Account Status:</span>
+                          <span class="status-badge status-active ms-2"
+                            >Active</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Second Row: Trust Fund -->
+            <div class="row g-3">
+              <!-- Trust Fund Account Card -->
+              <div class="col-md-4">
+                <div
+                  class="card account-item-card h-100"
+                  [class.selected]="selectedAccountType === 'Trust Fund'"
+                  (click)="selectAccountType('Trust Fund')"
+                >
+                  <div class="card-body p-3 position-relative">
+                    <div class="radio-container">
+                      <input
+                        type="radio"
+                        [checked]="selectedAccountType === 'Trust Fund'"
+                        class="form-check-input"
+                        name="accountSelection"
+                      />
+                    </div>
+                    <div class="account-content">
+                      <h6 class="account-title mb-3">Trust Fund account</h6>
+                      <div class="account-details">
+                        <div class="detail-item mb-2">
+                          <span class="detail-label">Account Number:</span>
+                          <span class="detail-value">1234567890</span>
+                        </div>
+                        <div class="detail-item mb-2">
+                          <span class="detail-label">Account Opening:</span>
+                          <span class="detail-value">30th, Dec 1972</span>
+                        </div>
+                        <div class="detail-item">
+                          <span class="detail-label">Account Status:</span>
+                          <span class="status-badge status-active ms-2"
+                            >Active</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card History Card -->
+      <div class="card card-history-main-card">
+        <div class="card-body p-4">
+          <h6 class="section-title mb-3">Card History</h6>
+
+          <!-- Search Bar -->
+          <div class="mb-3">
+            <div class="search-container">
+              <input
+                type="text"
+                class="form-control search-input"
+                placeholder="Search for card history"
+                [(ngModel)]="searchQuery"
+                (input)="onSearchCardHistory()"
+              />
+              <span class="search-icon">🔍</span>
+            </div>
+          </div>
+
+          <!-- Card History Table -->
+          <div class="table-responsive">
+            <table class="table card-history-table mb-0">
+              <thead>
+                <tr>
+                  <th>Card Number</th>
+                  <th>Card Type</th>
+                  <th>Date Issued</th>
+                  <th>Expiry Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let card of filteredCardHistory">
+                  <td>{{ card.cardNumber }}</td>
+                  <td>{{ card.cardType }}</td>
+                  <td>{{ card.dateIssued }}</td>
+                  <td>{{ card.expiryDate }}</td>
+                </tr>
+                <tr *ngIf="filteredCardHistory.length === 0">
+                  <td colspan="4" class="text-center text-muted py-4">
+                    No card history found
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

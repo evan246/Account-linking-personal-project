@@ -1,0 +1,48 @@
+td,
+th {
+    padding: 0.9rem 0.75rem !important;
+}
+
+tr {
+    height: 56px;
+}
+
+.search-btn {
+    background-color: #233876;
+    border-color: #233876;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 0.5rem 1.5rem;
+    transition: background 0.2s;
+}
+
+.search-btn:hover {
+    background-color: #1a265c;
+    border-color: #1a265c;
+}
+
+.download-btn {
+    border-color: #dee2e6;
+    color: #233876;
+    margin-left: 0.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.download-btn i {
+    font-size: 1.2rem;
+}
+
+.ellipsis-action {
+    color: #222;
+    font-weight: bold;
+    font-size: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s;
+}
+
+.ellipsis-action:hover {
+    color: #000;
+}

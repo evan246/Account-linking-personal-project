@@ -1,0 +1,17 @@
+<div class="card-request-container">
+  <div class="verification-card">
+    <h4 class="verification-title">Customer Verification</h4>
+    <p class="verification-subtitle">
+      Kindly input customers verifiable means of identification
+    </p>
+    <input
+      type="text"
+      class="verification-input"
+      placeholder="Input customers account number/BVN/phone number"
+      [(ngModel)]="userInput"
+    />
+    <button class="verification-btn" (click)="verifyCustomer()">
+      Verify Customer
+    </button>
+  </div>
+</div>

@@ -15,6 +15,14 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'card-inventory',
+        loadChildren: () =>
+          import('./card-inventory/card-inventory.module').then(
+            (m) => m.CardInventoryModule
+          ),
+      },
+
+      {
         path: '**',
         redirectTo: '',
         pathMatch: 'full',

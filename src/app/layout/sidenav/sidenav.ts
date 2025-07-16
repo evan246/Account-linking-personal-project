@@ -19,9 +19,15 @@ interface MenuItem {
   imports: [CommonModule, MatIconModule],
 })
 export class Sidenav {
-  profileImage = 'https://i.pravatar.cc/150?img=3'; // Replace with actual image
+  profileImage = 'https://i.pravatar.cc/150?img=3';
   profileName = 'Victor Kennedy';
   menuItems = [
+    {
+      icon: 'credit_card',
+      title: 'Card Request',
+      route: '/card-request',
+      exact: true,
+    },
     {
       icon: 'support_agent',
       title: 'Customer Service',
@@ -30,8 +36,8 @@ export class Sidenav {
     },
     {
       icon: 'credit_card',
-      title: 'Card Service',
-      route: '/card-service',
+      title: 'Card Inventory',
+      route: '/card-inventory',
       exact: true,
     },
     { icon: 'settings', title: 'Settings', route: '/settings', exact: true },

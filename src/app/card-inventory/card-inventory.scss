@@ -1,0 +1,159 @@
+.primary-card {
+  background: #fff !important;
+  color: #232e6c !important;
+  transition: all 0.3s ease;
+}
+
+.primary-card:hover {
+  background: #232e6c !important;
+  color: #fff !important;
+}
+
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  background: #232e6c !important;
+  color: #fff !important;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-hover:hover .card-title,
+.card-hover:hover .card-subtitle,
+.card-hover:hover .icon-container,
+.card-hover:hover i {
+  color: #fff !important;
+}
+
+.icon-container i {
+  color: #232e6c !important;
+  transition: color 0.2s;
+}
+
+.card-hover:hover .icon-container i,
+.primary-card:hover .icon-container i {
+  color: #fff !important;
+}
+
+.primary-card .icon-container i {
+  color: #232e6c !important;
+  transition: color 0.2s;
+}
+
+.primary-card:hover .icon-container i {
+  color: #fff !important;
+}
+
+.primary-card .icon-container {
+  background-color: #dcfce7 !important;
+  /* or use the same as .bg-success-light or your default */
+  transition: background 0.2s;
+}
+
+.primary-card:hover .icon-container {
+  background-color: #232e6c !important;
+}
+
+
+.bg-success-light {
+  background-color: #dcfce7 !important;
+}
+
+.bg-warning-light {
+  background-color: #fef3c7 !important;
+}
+
+.bg-info-light {
+  background-color: #dbeafe !important;
+}
+
+.bg-danger-light {
+  background-color: #fee2e2 !important;
+}
+
+.bg-purple-light {
+  background-color: #f3e8ff !important;
+}
+
+.bg-primary-light {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+
+.text-purple {
+  color: #9333ea !important;
+}
+
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #4f46e5 !important;
+  box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.25) !important;
+}
+
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+
+.card {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.primary-card .card-title,
+.primary-card .card-subtitle {
+  color: #232e6c !important;
+  transition: color 0.2s;
+}
+
+.primary-card:hover .card-title,
+.primary-card:hover .card-subtitle {
+  color: #fff !important;
+}
+
+.card-subtitle {
+  font-size: 0.95rem !important;
+}
+
+.search-btn {
+  background-color: #233876;
+  border-color: #233876;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  transition: background 0.2s;
+}
+
+.search-btn:hover {
+  background-color: #1a265c;
+  border-color: #1a265c;
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1.5rem !important;
+  }
+
+  .card-title {
+    font-size: 36px !important;
+  }
+
+  .icon-container {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .icon-container i {
+    font-size: 18px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-title {
+    font-size: 28px !important;
+  }
+}

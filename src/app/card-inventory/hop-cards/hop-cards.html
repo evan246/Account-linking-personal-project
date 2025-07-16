@@ -1,0 +1,270 @@
+<div class="content-header">
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <input
+        type="text"
+        class="form-control search-input"
+        placeholder="Search for card serial number"
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()"
+        style="width: 300px"
+      />
+    </div>
+  </div>
+</div>
+
+<div class="content-body mt-4">
+  <div class="search-section">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="mb-0">HOP Cards</h4>
+      <div class="d-flex gap-3">
+        <select
+          class="form-select filter-dropdown"
+          [(ngModel)]="filters.accountType"
+          (change)="onFilterChange()"
+        >
+          <option value="">Account Type</option>
+          <option value="Savings">Savings</option>
+          <option value="Current">Current</option>
+          <option value="Fixed">Fixed</option>
+        </select>
+
+        <select
+          class="form-select filter-dropdown"
+          [(ngModel)]="filters.cardType"
+          (change)="onFilterChange()"
+        >
+          <option value="">Card Type</option>
+          <option value="Debit">Debit</option>
+          <option value="Credit">Credit</option>
+          <option value="Prepaid">Prepaid</option>
+        </select>
+
+        <select
+          class="form-select filter-dropdown"
+          [(ngModel)]="filters.branch"
+          (change)="onFilterChange()"
+        >
+          <option value="">Branch</option>
+          <option value="Alimosho">Alimosho</option>
+          <option value="Victoria Island">Victoria Island</option>
+          <option value="Ikeja">Ikeja</option>
+        </select>
+
+        <input
+          type="date"
+          class="form-control filter-dropdown"
+          [(ngModel)]="filters.dateIssued"
+          (change)="onFilterChange()"
+          placeholder="Date"
+        />
+
+        <button class="btn btn-primary search-btn" (click)="onSearch()">
+          Search
+        </button>
+        <button
+          class="btn btn-outline-secondary download-btn"
+          (click)="onExport()"
+        >
+          <i class="bi bi-download"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="data-table">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                (change)="selectAll($event)"
+              />
+            </th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Card Serial Number</th>
+            <th scope="col">Account Type</th>
+            <th scope="col">Date Issued</th>
+            <th scope="col">Card Type</th>
+            <th scope="col">Branch</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let record of filteredRecords; trackBy: trackByFn"
+            [class.table-active]="selectedRecords.has(record.id)"
+          >
+            <td>
+              <input
+                type="checkbox"
+                class="form-check-input"
+                [checked]="selectedRecords.has(record.id)"
+                (change)="toggleSelection(record.id, $event)"
+              />
+            </td>
+            <td class="fw-medium">{{ record.customerName }}</td>
+            <td class="font-monospace">{{ record.cardNumber }}</td>
+            <td>{{ record.accountType }}</td>
+            <td>{{ record.issuedDate | date : "dd-MM-yyyy" }}</td>
+            <td>{{ record.cardType }}</td>
+            <td>{{ record.branch }}</td>
+            <td>
+              <span class="ellipsis-action" (click)="viewCardDetails(record)"
+                >…</span
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  #cardDetailsModal
+  id="cardDetailsModal"
+  tabindex="-1"
+  aria-labelledby="cardDetailsModalLabel"
+  aria-hidden="true"
+  [class.show]="isModalVisible"
+  [style.display]="isModalVisible ? 'block' : 'none'"
+>
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 500px">
+    <div class="modal-content border-0 shadow-lg">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title fw-bold text-dark" id="cardDetailsModalLabel">
+          Card Details
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeModal()"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body card-modal-body" *ngIf="selectedCard">
+        <button
+          type="button"
+          class="modal-close-btn"
+          (click)="closeModal()"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+        <table class="card-modal-table">
+          <tr>
+            <td>Customer Name</td>
+            <td class="value">{{ selectedCard.customerName }}</td>
+          </tr>
+          <tr>
+            <td>Card Serial Number</td>
+            <td class="value">{{ selectedCard.cardNumber }}</td>
+          </tr>
+          <tr>
+            <td>Account Type</td>
+            <td class="value">{{ selectedCard.accountType }}</td>
+          </tr>
+          <tr>
+            <td>Date Issued</td>
+            <td class="value">{{ formatDate(selectedCard.issuedDate) }}</td>
+          </tr>
+          <tr>
+            <td>Card type</td>
+            <td class="value">{{ selectedCard.cardType }}</td>
+          </tr>
+          <tr>
+            <td>Branch</td>
+            <td class="value">{{ selectedCard.branch }}</td>
+          </tr>
+        </table>
+        <button type="button" class="block-btn" (click)="blockCardFromModal()">
+          Block card
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal-backdrop fade"
+  *ngIf="isModalVisible"
+  [class.show]="isModalVisible"
+  (click)="closeModal()"
+></div>
+
+<style>
+  td,
+  th {
+    padding: 0.9rem 0.75rem !important;
+  }
+  tr {
+    height: 56px;
+  }
+  .card-modal-body {
+    position: relative;
+    padding: 2.5rem 2rem 2rem 2rem;
+    background: #fff;
+    border-radius: 16px;
+    min-width: 350px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .card-modal-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: left;
+    color: #222;
+  }
+  .card-modal-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .card-modal-table td {
+    font-size: 1rem;
+    color: #222;
+    padding: 0.4rem 0.2rem;
+    vertical-align: middle;
+  }
+  .card-modal-table td.value {
+    text-align: right;
+    font-weight: 500;
+    color: #232e6c;
+  }
+  .block-btn {
+    width: 100%;
+    background: #232e6c;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.9rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: background 0.2s;
+  }
+  .block-btn:hover {
+    background: #1a2250;
+  }
+  .modal-close-btn {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .modal-close-btn:hover {
+    color: #232e6c;
+  }
+</style>

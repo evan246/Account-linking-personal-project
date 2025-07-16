@@ -1,0 +1,435 @@
+<!-- Success Modal/Page -->
+<div
+  *ngIf="showSuccess"
+  class="d-flex justify-content-center align-items-center"
+  style="min-height: 100vh"
+>
+  <div
+    class="success-modal-card text-center"
+    style="
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      padding: 2.5rem 2rem;
+      max-width: 400px;
+      width: 100%;
+      margin: 0 auto;
+    "
+  >
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 2rem;
+      "
+    >
+      <svg
+        width="96"
+        height="96"
+        viewBox="0 0 96 96"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="48" cy="48" r="48" fill="#E6F4EA" />
+        <path
+          d="M32 50.5L44.5 63L68 39.5"
+          stroke="#219653"
+          stroke-width="6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+    <h3 class="fw-bold mb-2">Card Initiated<br />successful</h3>
+    <p class="mb-4" style="max-width: 320px; margin: 0 auto">
+      Your request has been routed to the Head of Operations &amp; Service
+      Manager for Approval.
+    </p>
+    <button
+      class="btn btn-primary w-100 mt-3"
+      style="
+        background: #233876;
+        border-color: #233876;
+        font-size: 1.15rem;
+        padding: 1rem 0;
+        border-radius: 8px;
+        font-weight: 600;
+      "
+      (click)="goHome()"
+    >
+      Back to Home
+    </button>
+  </div>
+</div>
+<!-- Card Request Form (Figma-matching, previously modal) -->
+<div
+  *ngIf="!showSuccess"
+  class="container py-5 d-flex justify-content-center align-items-center"
+  style="min-height: 100vh"
+>
+  <div class="custom-modal-card" style="max-width: 600px; width: 100%">
+    <div class="main-content">
+      <div class="form-container">
+        <div class="form-header">
+          <div class="d-flex align-items-center mb-3">
+            <button
+              type="button"
+              class="btn btn-link p-0 me-2"
+              (click)="goBack()"
+              style="
+                font-size: 1.5rem;
+                line-height: 1;
+                color: #232e6c;
+                text-decoration: none;
+              "
+            >
+              &#8592;
+            </button>
+            <h2 class="form-title mb-0">{{ formTitle }}</h2>
+          </div>
+        </div>
+        <div class="form-body">
+          <!-- Step 1: Card Request Form -->
+          <form *ngIf="currentStep === 1" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label class="form-label">Request Type</label>
+              <input
+                type="text"
+                class="form-control"
+                value="Physical Card"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Card Category</label>
+              <div class="select-wrapper">
+                <select
+                  class="form-select"
+                  [(ngModel)]="selectedCategory"
+                  name="category"
+                  (change)="onCategoryChange($event)"
+                >
+                  <option value="">Select Card category</option>
+                  <option value="pre-personalized">Pre-personalized</option>
+                  <option value="instant-issuance">Instant Issuance</option>
+                </select>
+                <span class="dropdown-icon">&#9662;</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Card Stock</label>
+              <div class="select-wrapper">
+                <select
+                  class="form-select"
+                  [(ngModel)]="selectedStock"
+                  name="stock"
+                  (change)="onStockChange($event)"
+                >
+                  <option value="">Select Card Stock</option>
+                  <option value="card">Card</option>
+                  <option value="serial-number">Serial Number</option>
+                </select>
+                <span class="dropdown-icon">&#9662;</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">PAN/Serial Number</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Input PAN/Serial Number"
+                [(ngModel)]="panSerialNumber"
+                name="panSerial"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Reason for Request</label>
+              <div class="select-wrapper">
+                <select
+                  class="form-select"
+                  [(ngModel)]="selectedReason"
+                  name="reason"
+                  (change)="onReasonChange($event)"
+                >
+                  <option value="">Select reason</option>
+                  <option value="new">New</option>
+                  <option value="lost">Lost</option>
+                  <option value="replacement">Replacement</option>
+                  <option value="upgrade">Upgrade</option>
+                  <option value="stolen">Stolen</option>
+                </select>
+                <span class="dropdown-icon">&#9662;</span>
+              </div>
+            </div>
+            <button type="submit" class="btn-next">Next</button>
+          </form>
+
+          <!-- Step 2: Instant Issuance Form -->
+          <form
+            *ngIf="currentStep === 2 && selectedCategory === 'instant-issuance'"
+            (ngSubmit)="onInstantIssuanceSubmit()"
+            class="instant-issuance-content"
+          >
+            <div class="form-group">
+              <label class="form-label">Customer Name</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="instantIssuance.customerName"
+                name="customerName"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Account Number</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="instantIssuance.accountNumber"
+                name="accountNumber"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Account Type</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="instantIssuance.accountType"
+                name="accountType"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Card Type</label>
+              <div class="select-wrapper">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="instantIssuance.cardType"
+                  name="cardType"
+                  placeholder="Enter Card Type"
+                  readonly
+                />
+                <span class="dropdown-icon">&#9662;</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Card Scheme</label>
+              <div class="select-wrapper">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="instantIssuance.cardScheme"
+                  name="cardScheme"
+                  placeholder="Select Card Scheme"
+                  readonly
+                />
+                <span class="dropdown-icon">&#9662;</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Kindly select option</label>
+              <div class="radio-group">
+                <label class="radio-inline">
+                  <input
+                    type="radio"
+                    name="changeOption"
+                    [(ngModel)]="instantIssuance.changeOption"
+                    value="Charge"
+                  />
+                  Charge
+                </label>
+                <label class="radio-inline">
+                  <input
+                    type="radio"
+                    name="changeOption"
+                    [(ngModel)]="instantIssuance.changeOption"
+                    value="Do not Charge"
+                  />
+                  Do not Charge
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Reason for "Do not Charge"</label>
+              <textarea
+                class="form-control textarea-reason"
+                [(ngModel)]="instantIssuance.reason"
+                name="reason"
+                placeholder="Input reason"
+                rows="3"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Attach document of approval</label>
+              <div class="upload-dropzone" (click)="triggerFileUpload()">
+                <input
+                  type="file"
+                  id="fileInput"
+                  class="form-control"
+                  (change)="onFileSelected($event)"
+                  style="display: none"
+                />
+                <div class="upload-instructions">
+                  <span *ngIf="!instantIssuance.attachedDocument">
+                    Drag and drop file or
+                    <span class="upload-link">Upload a file</span>
+                  </span>
+                  <span *ngIf="instantIssuance.attachedDocument">
+                    {{ instantIssuance.attachedDocument.name }}
+                  </span>
+                </div>
+                <div class="upload-info">
+                  Supported format: jpg, png | Maximum Size: 3MB
+                </div>
+              </div>
+            </div>
+            <div class="button-group single-button">
+              <button type="submit" class="btn-activate">Activate Card</button>
+            </div>
+          </form>
+
+          <!-- Step 2: Pre-personalized Form -->
+          <form
+            *ngIf="currentStep === 2 && selectedCategory === 'pre-personalized'"
+            (ngSubmit)="onPrePersonalizedSubmit()"
+            class="pre-personalized-content"
+          >
+            <div class="form-group">
+              <label class="form-label">Customer Name</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="prePersonalized.customerName"
+                name="preCustomerName"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Account Number</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="prePersonalized.accountNumber"
+                name="preAccountNumber"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Account Type</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="prePersonalized.accountType"
+                name="preAccountType"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Card Type</label>
+              <div class="select-wrapper">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="prePersonalized.cardType"
+                  name="preCardType"
+                  placeholder="Select Card Type"
+                  readonly
+                />
+                <span class="dropdown-icon">&#9662;</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Card Scheme</label>
+              <div class="select-wrapper">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="prePersonalized.cardScheme"
+                  name="preCardScheme"
+                  placeholder="Select Card Scheme"
+                  readonly
+                />
+                <span class="dropdown-icon">&#9662;</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label"
+                >Input the last 4 digit of Card Serial Number or PAN</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="prePersonalized.panOrSerial"
+                name="prePanOrSerial"
+                placeholder="Input PAN or Serial Number"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Kindly select option</label>
+              <div class="radio-group">
+                <label class="radio-inline">
+                  <input
+                    type="radio"
+                    name="preChangeOption"
+                    [(ngModel)]="prePersonalized.changeOption"
+                    value="Charge"
+                  />
+                  Charge
+                </label>
+                <label class="radio-inline">
+                  <input
+                    type="radio"
+                    name="preChangeOption"
+                    [(ngModel)]="prePersonalized.changeOption"
+                    value="Do not Charge"
+                  />
+                  Do not Charge
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Reason for 'Do not Charge'</label>
+              <textarea
+                class="form-control textarea-reason"
+                [(ngModel)]="prePersonalized.reason"
+                name="preReason"
+                placeholder="Input reason"
+                rows="3"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Attach document of approval</label>
+              <div class="upload-dropzone" (click)="triggerFileUpload()">
+                <input
+                  type="file"
+                  id="preFileInput"
+                  class="form-control"
+                  (change)="onFileSelected($event)"
+                  style="display: none"
+                />
+                <div class="upload-instructions">
+                  <span *ngIf="!prePersonalized.attachedDocument">
+                    Drag and drop file or
+                    <span class="upload-link">Upload a file</span>
+                  </span>
+                  <span *ngIf="prePersonalized.attachedDocument">
+                    {{ prePersonalized.attachedDocument.name }}
+                  </span>
+                </div>
+                <div class="upload-info">
+                  Supported format: jpg, png | Maximum Size: 3MB
+                </div>
+              </div>
+            </div>
+            <div class="button-group single-button">
+              <button type="submit" class="btn-activate">Activate Card</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

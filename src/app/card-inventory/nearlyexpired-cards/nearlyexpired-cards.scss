@@ -1,0 +1,12 @@
+.ellipsis-action {
+    color: #222;
+    font-weight: bold;
+    font-size: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s;
+}
+
+.ellipsis-action:hover {
+    color: #000;
+}

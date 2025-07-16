@@ -1,0 +1,178 @@
+<div
+  class="container-fluid p-4"
+  style="background-color: #f8f9fa; min-height: 100vh"
+>
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="input-group" style="max-width: 400px">
+        <span
+          class="input-group-text bg-white border-end-0"
+          style="border-color: #e0e0e0"
+        >
+          <i class="bi bi-search text-muted"></i>
+        </span>
+        <input
+          type="text"
+          class="form-control border-start-0"
+          placeholder="Search for branch Number"
+          style="border-color: #e0e0e0"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <div class="col-lg-6">
+      <h2 class="fw-bold mb-0" style="color: #1a1a1a; font-size: 28px">
+        Card Inventory
+        <span class="text-muted fw-normal" style="font-size: 16px"
+          >(Omole Branch-Lagos)</span
+        >
+      </h2>
+    </div>
+    <div class="col-lg-6">
+      <div class="d-flex gap-3 flex-wrap justify-content-lg-end mt-3 mt-lg-0">
+        <select
+          class="form-select"
+          [(ngModel)]="selectedBranch"
+          style="width: 120px; border-color: #e0e0e0"
+        >
+          <option value="" disabled selected>Branch</option>
+          <option *ngFor="let option of branchOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+
+        <select
+          class="form-select"
+          [(ngModel)]="selectedCardType"
+          style="width: 120px; border-color: #e0e0e0"
+        >
+          <option value="" disabled selected>Card Type</option>
+          <option *ngFor="let option of cardTypeOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+
+        <input
+          type="date"
+          class="form-control"
+          [(ngModel)]="selectedDate"
+          placeholder="Date"
+          style="width: 120px; border-color: #e0e0e0"
+        />
+
+        <button
+          class="btn fw-medium px-4"
+          (click)="onSearch()"
+          style="background-color: #4f46e5; border-color: #4f46e5; color: white"
+        >
+          Search
+        </button>
+
+        <button
+          class="btn btn-outline-secondary"
+          (click)="onExport()"
+          style="border-color: #e0e0e0"
+        >
+          <i class="bi bi-download"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div
+      class="col-lg-3 col-md-6"
+      *ngFor="let metric of cardMetrics.slice(0, 4); let i = index"
+    >
+      <div
+        class="card h-100 border-0 shadow-sm card-hover"
+        [ngClass]="{ 'primary-card': i === 0 }"
+        (click)="onCardClick(metric)"
+        style="cursor: pointer; border-radius: 16px; min-height: 140px"
+      >
+        <div class="card-body p-4">
+          <div class="d-flex align-items-start mb-3">
+            <div
+              class="icon-container d-flex align-items-center justify-content-center me-3"
+              [ngClass]="metric.bgClass"
+              style="
+                width: 48px;
+                height: 48px;
+                border-radius: 12px;
+                flex-shrink: 0;
+              "
+            >
+              <i
+                [class]="'bi bi-' + metric.icon + ' ' + metric.colorClass"
+                style="font-size: 20px"
+              ></i>
+            </div>
+          </div>
+          <div>
+            <h6
+              class="card-subtitle mb-2 fw-medium"
+              [ngClass]="i === 0 ? 'text-white-50' : 'text-muted'"
+              style="font-size: 14px; line-height: 1.2"
+            >
+              {{ metric.title }}
+            </h6>
+            <h2
+              class="card-title mb-0 fw-bold"
+              [ngClass]="i === 0 ? 'text-white' : 'text-dark'"
+              style="font-size: 48px; line-height: 1.1; font-weight: 700"
+            >
+              {{ metric.value | number }}
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="col-lg-3 col-md-6"
+      *ngFor="let metric of cardMetrics.slice(4, 7); let i = index"
+    >
+      <div
+        class="card h-100 border-0 shadow-sm card-hover"
+        (click)="onCardClick(metric)"
+        style="cursor: pointer; border-radius: 16px; min-height: 140px"
+      >
+        <div class="card-body p-4">
+          <div class="d-flex align-items-start mb-3">
+            <div
+              class="icon-container d-flex align-items-center justify-content-center me-3"
+              [ngClass]="metric.bgClass"
+              style="
+                width: 48px;
+                height: 48px;
+                border-radius: 12px;
+                flex-shrink: 0;
+              "
+            >
+              <i
+                [class]="'bi bi-' + metric.icon + ' ' + metric.colorClass"
+                style="font-size: 20px"
+              ></i>
+            </div>
+          </div>
+          <div>
+            <h6
+              class="card-subtitle mb-2 text-muted fw-medium"
+              style="font-size: 14px; line-height: 1.2"
+            >
+              {{ metric.title }}
+            </h6>
+            <h2
+              class="card-title mb-0 fw-bold text-dark"
+              style="font-size: 48px; line-height: 1.1; font-weight: 700"
+            >
+              {{ metric.value | number }}
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+/* Only keeping the action button styling as requested */
+.action-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #6c757d;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.action-btn:hover {
+  color: #495057;
+}
+
+.ellipsis-action {
+  color: #222;
+  font-weight: bold;
+  font-size: 1.5rem;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s;
+}
+
+.ellipsis-action:hover {
+  color: #000;
+}
