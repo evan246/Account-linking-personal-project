@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CardRecord, FilterOptions } from '../../core/interfaces/cardrecord';
 import { CardService } from '../../shared/services/card.service';
+import { ModalService } from '../../shared/modal.service';
+import { SharedModalComponent } from '../../shared/modal.component';
 
 @Component({
   selector: 'app-blocked-cards',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SharedModalComponent],
   templateUrl: './blocked-cards.html',
   styleUrl: './blocked-cards.scss',
 })
@@ -26,7 +28,10 @@ export class BlockedCardsComponent implements OnInit {
   selectedCard: CardRecord | null = null;
   isModalVisible = false;
 
-  constructor(private cardService: CardService) {}
+  constructor(
+    private cardService: CardService,
+    public modalService: ModalService
+  ) {}
 
   async ngOnInit(): Promise<void> {
     await this.loadCards();
@@ -121,14 +126,12 @@ export class BlockedCardsComponent implements OnInit {
 
   viewCardDetails(record: CardRecord): void {
     this.selectedCard = record;
-    this.isModalVisible = true;
-    document.body.classList.add('modal-open');
+    this.modalService.open();
   }
 
   closeModal(): void {
-    this.isModalVisible = false;
+    this.modalService.close();
     this.selectedCard = null;
-    document.body.classList.remove('modal-open');
   }
 
   blockCardFromModal() {

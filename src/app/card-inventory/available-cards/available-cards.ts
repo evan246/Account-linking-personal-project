@@ -1,12 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { CardRecord, FilterOptions } from '../../core/interfaces/cardrecord';
 import { CardService } from '../../shared/services/card.service';
+import { SharedModalComponent } from '../../shared/modal.component';
+import { ModalService } from '../../shared/modal.service';
 
 @Component({
   selector: 'app-available-cards',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule, SharedModalComponent],
   templateUrl: './available-cards.html',
   styleUrl: './available-cards.scss',
 })
@@ -27,7 +30,10 @@ export class AvailableCardsComponent implements OnInit {
     dateIssued: '',
   };
 
-  constructor(private cardService: CardService) {}
+  constructor(
+    private cardService: CardService,
+    public modalService: ModalService
+  ) {}
 
   ngOnInit(): void {
     this.loadCards();
@@ -124,29 +130,13 @@ export class AvailableCardsComponent implements OnInit {
   }
 
   viewCardDetails(record: CardRecord): void {
-    console.log('viewCardDetails called with record:', record);
     this.selectedCard = record;
-    this.isModalVisible = true;
-    console.log(
-      'Modal state set - isModalVisible:',
-      this.isModalVisible,
-      'selectedCard:',
-      this.selectedCard
-    );
-
-    // Add body class to prevent scrolling
-    document.body.classList.add('modal-open');
-
-    // Close any open dropdowns
-    this.closeDropdowns();
+    this.modalService.open();
   }
 
   closeModal(): void {
-    this.isModalVisible = false;
+    this.modalService.close();
     this.selectedCard = null;
-
-    // Remove body class to restore scrolling
-    document.body.classList.remove('modal-open');
   }
 
   blockCardFromModal(): void {

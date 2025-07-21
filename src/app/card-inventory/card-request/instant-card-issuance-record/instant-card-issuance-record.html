@@ -1,31 +1,70 @@
-<div class="record-container">
-  <div
-    class="record-header d-flex justify-content-between align-items-center mb-4"
-  >
+<div class="top-search-container">
+  <div class="search-input-wrapper">
+    <i class="bi bi-search search-icon"></i>
     <input
       type="text"
-      class="form-control search-bar"
+      class="form-control search-input"
       placeholder="Search for customer"
+      [(ngModel)]="searchTerm"
+      (input)="onSearch()"
     />
-    <div class="d-flex gap-2">
-      <select class="form-select filter-select">
-        <option>Account Type</option>
-        <option>Savings</option>
-        <option>Current</option>
-        <option>Corporate</option>
-      </select>
-      <input type="date" class="form-control filter-date" />
-      <button class="btn btn-primary">Search</button>
-      <button class="btn btn-outline-secondary">
-        <i class="bi bi-download"></i>
-      </button>
+  </div>
+</div>
+
+<div class="table-container">
+  <!-- Header Section -->
+  <div class="table-header">
+    <div class="title-section">
+      <h4 class="table-title">Instant Card Issuance Record</h4>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-controls">
+        <select
+          class="form-select filter-dropdown"
+          [(ngModel)]="selectedAccountType"
+          (change)="onFilterChange()"
+        >
+          <option value="">Account Type</option>
+          <option value="Savings">Savings</option>
+          <option value="Current">Current</option>
+          <option value="Fixed">Fixed</option>
+        </select>
+
+        <input
+          type="date"
+          class="form-control filter-date"
+          [(ngModel)]="selectedDate"
+          (change)="onFilterChange()"
+          placeholder="Date"
+        />
+
+        <button class="btn btn-primary search-btn" (click)="onSearch()">
+          Search
+        </button>
+
+        <button
+          class="btn btn-outline-secondary download-btn"
+          (click)="onExport()"
+        >
+          <i class="bi bi-download"></i>
+        </button>
+      </div>
     </div>
   </div>
-  <div class="record-table-wrapper">
-    <table class="table record-table">
+
+  <!-- Table Section -->
+  <div class="table-wrapper">
+    <table class="table data-table">
       <thead>
         <tr>
-          <th><input type="checkbox" /></th>
+          <th class="checkbox-col">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              (change)="selectAll($event)"
+            />
+          </th>
           <th>Customer Name</th>
           <th>Account Number</th>
           <th>Account Type</th>
@@ -34,24 +73,24 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of rows">
-          <td><input type="checkbox" /></td>
-          <td>{{ row.customerName }}</td>
-          <td>{{ row.accountNumber }}</td>
-          <td>{{ row.accountType }}</td>
-          <td>{{ row.dateOfIssuance }}</td>
-          <td>{{ row.status }}</td>
+        <tr *ngFor="let row of filteredRows; trackBy: trackByFn">
+          <td class="checkbox-col">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              [checked]="selectedRecords.has(row.id)"
+              (change)="toggleSelection(row.id, $event)"
+            />
+          </td>
+          <td class="customer-name">{{ row.customerName }}</td>
+          <td class="account-number">{{ row.accountNumber }}</td>
+          <td class="account-type">{{ row.accountType }}</td>
+          <td class="date-issued">
+            {{ formatDateForDisplay(row.dateIssued) }}
+          </td>
+          <td class="status">{{ row.status }}</td>
         </tr>
       </tbody>
     </table>
-  </div>
-  <div
-    class="record-pagination d-flex justify-content-between align-items-center mt-3"
-  >
-    <span>1 out of 15</span>
-    <div class="d-flex gap-2">
-      <button class="btn btn-sm btn-outline-secondary">&lt;</button>
-      <button class="btn btn-sm btn-outline-secondary">&gt;</button>
-    </div>
   </div>
 </div>

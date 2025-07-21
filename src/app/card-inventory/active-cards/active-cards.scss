@@ -1,16 +1,4 @@
-/* Only keeping the action button styling as requested */
-.action-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  color: #6c757d;
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.action-btn:hover {
-  color: #495057;
-}
+@import '../table-styles';
 
 .ellipsis-action {
   color: #222;

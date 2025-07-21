@@ -1,0 +1,103 @@
+.custom-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1060;
+}
+
+.modal-content {
+    border-radius: 12px;
+    background: #ffffff;
+    position: relative;
+}
+
+.modal-header {
+    padding: 1.5rem 1.5rem 0 1.5rem;
+    border-bottom: none !important;
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    color: #212529;
+    font-weight: 700;
+}
+
+.custom-close-btn {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: #ffe6ee;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e74c7c;
+    font-size: 22px;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.custom-close-btn:hover {
+    background: #ffd6e6;
+}
+
+.card-modal-body {
+    position: relative;
+    padding: 2.5rem 2rem 2rem 2rem;
+    background: #fff;
+    border-radius: 16px;
+    min-width: 350px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.details-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.details-table .divider-row td {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0;
+    height: 0;
+}
+
+.details-table .label {
+    color: #222;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: left;
+    padding: 16px 0 16px 0;
+}
+
+.details-table .value {
+    color: #222;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: right;
+    padding: 16px 0 16px 0;
+}
+
+.btn-primary.w-100,
+.block-btn {
+    background: hsl(225, 94%, 14%);
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 12px 0;
+    width: 100%;
+    margin-top: 16px;
+    color: #fff;
+    border: none;
+}

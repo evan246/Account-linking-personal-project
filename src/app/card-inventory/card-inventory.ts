@@ -14,6 +14,7 @@ export class CardInventoryComponent implements OnInit {
   selectedBranch = '';
   selectedCardType = '';
   selectedDate = '';
+  searchTerm: string = '';
 
   branchOptions: FilterOption[] = [
     { label: 'All Branches', value: 'all' },

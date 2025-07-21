@@ -3,10 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CardRecord, FilterOptions } from '../../core/interfaces/cardrecord';
 import { CardService } from '../../shared/services/card.service';
+import { SharedModalComponent } from '../../shared/modal.component';
+import { ModalService } from '../../shared/modal.service';
 
 @Component({
   selector: 'app-expiry-cards',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SharedModalComponent],
   templateUrl: './expiry-cards.html',
   styleUrl: './expiry-cards.scss',
 })
@@ -50,8 +52,12 @@ export class ExpiryCardsComponent implements OnInit {
     branch: '',
     dateIssued: '',
   };
+  selectedCard: CardRecord | null = null;
 
-  constructor(private cardService: CardService) {}
+  constructor(
+    private cardService: CardService,
+    public modalService: ModalService
+  ) {}
 
   ngOnInit(): void {
     this.loadCards();
@@ -145,5 +151,15 @@ export class ExpiryCardsComponent implements OnInit {
 
   trackByFn(index: number, item: CardRecord): string {
     return item.id;
+  }
+
+  viewCardDetails(record: CardRecord): void {
+    this.selectedCard = record;
+    this.modalService.open();
+  }
+
+  closeModal(): void {
+    this.modalService.close();
+    this.selectedCard = null;
   }
 }

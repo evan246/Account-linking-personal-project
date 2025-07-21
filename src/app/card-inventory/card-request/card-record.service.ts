@@ -19,6 +19,27 @@ export class CardRecordService {
       dateOfIssuance: '18-08-2015',
       status: 'issued to customer',
     },
+    {
+      customerName: 'John Doe',
+      accountNumber: '1234567890',
+      accountType: 'Current',
+      dateOfIssuance: '20-08-2015',
+      status: 'issued to customer',
+    },
+    {
+      customerName: 'Jane Smith',
+      accountNumber: '9876543210',
+      accountType: 'Corporate',
+      dateOfIssuance: '22-08-2015',
+      status: 'issued to customer',
+    },
+    {
+      customerName: 'Mike Johnson',
+      accountNumber: '5556667777',
+      accountType: 'Savings',
+      dateOfIssuance: '25-08-2015',
+      status: 'issued to customer',
+    },
   ];
 
   addRecord(record: any) {
@@ -32,5 +53,23 @@ export class CardRecordService {
 
   getPrePersonalisedRecords() {
     return this.prePersonalisedRecords;
+  }
+
+  getAllPrePersonalisedLinkedCard(category: string) {
+    // Filter records based on the selected category
+    return this.prePersonalisedRecords.filter((record) => {
+      switch (category.toLowerCase()) {
+        case 'savings':
+          return record.accountType === 'Savings';
+        case 'current':
+          return record.accountType === 'Current';
+        case 'corporate':
+          return record.accountType === 'Corporate';
+        case 'all':
+          return true;
+        default:
+          return true;
+      }
+    });
   }
 }

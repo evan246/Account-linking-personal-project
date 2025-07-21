@@ -21,7 +21,7 @@ export class CardService {
       branch: 'Alimosho',
       cardSerialNumber: '',
       selected: undefined,
-      dateIssued: undefined,
+      dateIssued: new Date('2015-08-18'),
     },
     {
       id: '2',
@@ -37,7 +37,7 @@ export class CardService {
       branch: 'Victoria Island',
       cardSerialNumber: '',
       selected: undefined,
-      dateIssued: undefined,
+      dateIssued: new Date('2020-03-15'),
     },
     {
       id: '3',
@@ -53,7 +53,7 @@ export class CardService {
       branch: 'Ikeja',
       cardSerialNumber: '',
       selected: undefined,
-      dateIssued: undefined,
+      dateIssued: new Date('2023-06-10'),
     },
     {
       id: '4',
@@ -69,7 +69,7 @@ export class CardService {
       branch: 'Alimosho',
       cardSerialNumber: '',
       selected: undefined,
-      dateIssued: undefined,
+      dateIssued: new Date('2018-12-05'),
     },
     {
       id: '5',
@@ -85,7 +85,7 @@ export class CardService {
       branch: 'Victoria Island',
       cardSerialNumber: '',
       selected: undefined,
-      dateIssued: undefined,
+      dateIssued: new Date('2024-01-01'),
     },
     {
       id: '6',
@@ -101,7 +101,7 @@ export class CardService {
       branch: 'Ikeja',
       cardSerialNumber: '',
       selected: undefined,
-      dateIssued: undefined,
+      dateIssued: new Date('2022-09-20'),
     },
     {
       id: '7',
@@ -117,7 +117,7 @@ export class CardService {
       branch: 'Alimosho',
       cardSerialNumber: '',
       selected: undefined,
-      dateIssued: undefined,
+      dateIssued: new Date('2024-01-15'),
     },
     {
       id: '8',
@@ -133,7 +133,7 @@ export class CardService {
       branch: 'Victoria Island',
       cardSerialNumber: '',
       selected: undefined,
-      dateIssued: undefined,
+      dateIssued: new Date('2021-04-12'),
     },
   ];
 
@@ -255,5 +255,101 @@ export class CardService {
       '- card not found'
     );
     return Promise.resolve(false);
+  }
+
+  // Card Activation Methods
+  activateCard(
+    cardId: string,
+    activationData: {
+      customerId: string;
+      customerName: string;
+      customerEmail: string;
+      accountType: string;
+      branch: string;
+      activationReason?: string;
+    }
+  ): Promise<boolean> {
+    const card = this.mockData.find((c) => c.id === cardId);
+    if (card && card.status === 'Available') {
+      card.status = 'Active';
+      card.customerName = activationData.customerName;
+      card.customerEmail = activationData.customerEmail;
+      card.accountType = activationData.accountType;
+      card.branch = activationData.branch;
+      card.lastActivity = new Date();
+      card.issuedDate = new Date();
+
+      console.log(
+        'CardService: activateCard() called for card',
+        cardId,
+        '- activated successfully'
+      );
+      return Promise.resolve(true);
+    }
+    console.log(
+      'CardService: activateCard() called for card',
+      cardId,
+      '- card not found or not available'
+    );
+    return Promise.resolve(false);
+  }
+
+  deactivateCard(cardId: string, reason: string): Promise<boolean> {
+    const card = this.mockData.find((c) => c.id === cardId);
+    if (card && card.status === 'Active') {
+      card.status = 'Available';
+      card.customerName = '';
+      card.customerEmail = '';
+      card.lastActivity = new Date();
+
+      console.log(
+        'CardService: deactivateCard() called for card',
+        cardId,
+        '- deactivated successfully'
+      );
+      return Promise.resolve(true);
+    }
+    console.log(
+      'CardService: deactivateCard() called for card',
+      cardId,
+      '- card not found or not active'
+    );
+    return Promise.resolve(false);
+  }
+
+  getActivationHistory(cardId: string): Observable<any[]> {
+    // Mock activation history - in real implementation, this would come from backend
+    const mockHistory = [
+      {
+        id: '1',
+        cardId: cardId,
+        action: 'Activated',
+        timestamp: new Date('2024-01-15T10:30:00'),
+        performedBy: 'John Doe',
+        reason: 'New customer card activation',
+      },
+      {
+        id: '2',
+        cardId: cardId,
+        action: 'Deactivated',
+        timestamp: new Date('2024-01-10T14:20:00'),
+        performedBy: 'Jane Smith',
+        reason: 'Customer request',
+      },
+    ];
+
+    return of(mockHistory);
+  }
+
+  getCardsForActivation(): Observable<CardRecord[]> {
+    const availableCards = this.mockData.filter(
+      (card) => card.status === 'Available'
+    );
+    console.log(
+      'CardService: getCardsForActivation() called, returning',
+      availableCards.length,
+      'records'
+    );
+    return of(availableCards);
   }
 }

@@ -3,9 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CardRecord, FilterOptions } from '../../core/interfaces/cardrecord';
 import { CardService } from '../../shared/services/card.service';
+import { SharedModalComponent } from '../../shared/modal.component';
+import { ModalService } from '../../shared/modal.service';
+
 @Component({
   selector: 'app-issued-cards',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SharedModalComponent],
   templateUrl: './issued-cards.html',
   styleUrl: './issued-cards.scss',
 })
@@ -14,46 +17,40 @@ export class IssuedCardsComponent implements OnInit {
   filteredRecords: CardRecord[] = [];
   selectedRecords = new Set<string>();
   searchTerm = '';
-
-  // Add missing properties for template binding
   selectedAccountType = '';
   selectedCardType = '';
   selectedBranch = '';
   selectedDate = '';
-
-  // Add missing options arrays
   accountTypeOptions = [
     { label: 'All Account Types', value: '' },
     { label: 'Savings', value: 'savings' },
     { label: 'Current', value: 'current' },
     { label: 'Fixed Deposit', value: 'fixed' },
   ];
-
   cardTypeOptions = [
     { label: 'All Card Types', value: '' },
     { label: 'Debit', value: 'debit' },
     { label: 'Credit', value: 'credit' },
     { label: 'Prepaid', value: 'prepaid' },
   ];
-
   branchOptions = [
     { label: 'All Branches', value: '' },
     { label: 'Alimosho', value: 'alimosho' },
     { label: 'Victoria Island', value: 'vi' },
     { label: 'Ikeja', value: 'ikeja' },
   ];
-
   filters: FilterOptions = {
     accountType: '',
     cardType: '',
     branch: '',
     dateIssued: '',
   };
-
   selectedCard: CardRecord | null = null;
-  isModalVisible = false;
 
-  constructor(private cardService: CardService) {}
+  constructor(
+    private cardService: CardService,
+    public modalService: ModalService
+  ) {}
 
   async ngOnInit(): Promise<void> {
     await this.loadCards();
@@ -155,14 +152,12 @@ export class IssuedCardsComponent implements OnInit {
 
   viewCardDetails(record: CardRecord): void {
     this.selectedCard = record;
-    this.isModalVisible = true;
-    document.body.classList.add('modal-open');
+    this.modalService.open();
   }
 
   closeModal(): void {
-    this.isModalVisible = false;
+    this.modalService.close();
     this.selectedCard = null;
-    document.body.classList.remove('modal-open');
   }
 
   formatDate(date: Date): string {

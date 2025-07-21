@@ -12,7 +12,31 @@ export interface CardRecord {
   branch: string;
   cardSerialNumber?: string;
   selected?: boolean;
-  dateIssued?: Date;
+  accountNumber?: string;
+  dateIssued: Date;
+}
+
+export interface CardActivationData {
+  cardId: string;
+  customerId: string;
+  customerName: string;
+  customerEmail: string;
+  accountType: string;
+  branch: string;
+  activationReason?: string;
+  activationDate: Date;
+  activatedBy: string;
+}
+
+export interface ActivationHistory {
+  id: string;
+  cardId: string;
+  action: 'Activated' | 'Deactivated' | 'Blocked' | 'Unblocked';
+  timestamp: Date;
+  performedBy: string;
+  reason?: string;
+  customerName?: string;
+  customerEmail?: string;
 }
 
 export interface FilterOptions {

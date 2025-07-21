@@ -3,10 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CardRecord, FilterOptions } from '../../core/interfaces/cardrecord';
 import { CardService } from '../../shared/services/card.service';
+import { SharedModalComponent } from '../../shared/modal.component';
+import { ModalService } from '../../shared/modal.service';
 
 @Component({
   selector: 'app-hop-cards',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SharedModalComponent],
   templateUrl: './hop-cards.html',
   styleUrl: './hop-cards.scss',
 })
@@ -54,7 +56,10 @@ export class HopCardsComponent implements OnInit {
   selectedCard: CardRecord | null = null;
   isModalVisible = false;
 
-  constructor(private cardService: CardService) {}
+  constructor(
+    private cardService: CardService,
+    public modalService: ModalService
+  ) {}
 
   ngOnInit(): void {
     this.loadCards();
@@ -152,14 +157,12 @@ export class HopCardsComponent implements OnInit {
 
   viewCardDetails(record: CardRecord): void {
     this.selectedCard = record;
-    this.isModalVisible = true;
-    document.body.classList.add('modal-open');
+    this.modalService.open();
   }
 
   closeModal(): void {
-    this.isModalVisible = false;
+    this.modalService.close();
     this.selectedCard = null;
-    document.body.classList.remove('modal-open');
   }
 
   formatDate(date: Date): string {

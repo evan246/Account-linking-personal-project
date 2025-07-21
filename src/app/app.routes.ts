@@ -21,6 +21,20 @@ export const routes: Routes = [
             (m) => m.CardInventoryModule
           ),
       },
+      {
+        path: 'card-request',
+        loadChildren: () =>
+          import('./card-inventory/card-request/card-request-module').then(
+            (m) => m.CardRequestModule
+          ),
+      },
+      {
+        path: 'pre-personalised-linked-card-record',
+        loadComponent: () =>
+          import(
+            './card-inventory/card-request/pre-personalised-linked-card-record/pre-personalised-linked-card-record'
+          ).then((m) => m.PrePersonalisedLinkedCardRecordComponent),
+      },
 
       {
         path: '**',

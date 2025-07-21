@@ -1,0 +1,229 @@
+<div class="container-fluid p-4">
+  <div class="content-header">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex gap-3 align-items-center">
+        <input
+          type="text"
+          class="form-control search-input"
+          placeholder="Search for card serial number"
+          [(ngModel)]="searchTerm"
+          (input)="onSearch()"
+          style="width: 300px"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="content-body mt-4">
+    <div class="search-section">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0">Reporting & Audit</h4>
+        <div class="d-flex gap-3">
+          <select
+            class="form-select filter-dropdown"
+            [(ngModel)]="filters.accountType"
+            (change)="onFilterChange()"
+          >
+            <option value="">Account Type</option>
+            <option *ngFor="let type of accountTypes" [value]="type">
+              {{ type }}
+            </option>
+          </select>
+
+          <select
+            class="form-select filter-dropdown"
+            [(ngModel)]="filters.cardType"
+            (change)="onFilterChange()"
+          >
+            <option value="">Card Type</option>
+            <option *ngFor="let type of cardTypes" [value]="type">
+              {{ type }}
+            </option>
+          </select>
+
+          <select
+            class="form-select filter-dropdown"
+            [(ngModel)]="filters.branch"
+            (change)="onFilterChange()"
+          >
+            <option value="">Branch</option>
+            <option *ngFor="let branch of branches" [value]="branch">
+              {{ branch }}
+            </option>
+          </select>
+
+          <input
+            type="date"
+            class="form-control filter-dropdown"
+            [(ngModel)]="filters.dateIssued"
+            (change)="onFilterChange()"
+            placeholder="Date"
+          />
+
+          <button class="btn btn-primary" (click)="onSearch()">Search</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="data-table">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead class="table-light">
+            <tr>
+              <th scope="col">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  [checked]="isAllSelected()"
+                  [indeterminate]="isSomeSelected()"
+                  (change)="selectAll($event)"
+                />
+              </th>
+              <th scope="col">Customer Name</th>
+              <th scope="col">Card Serial Number</th>
+              <th scope="col">Account Type</th>
+              <th scope="col">Date Issued</th>
+              <th scope="col">Card Type</th>
+              <th scope="col">Branch</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="filteredRecords.length === 0">
+              <td colspan="8" class="text-center py-4 text-muted">
+                <div>
+                  <i class="bi bi-search mb-2" style="font-size: 2rem"></i>
+                  <p class="mb-0">No records found matching your criteria</p>
+                </div>
+              </td>
+            </tr>
+            <tr
+              *ngFor="let record of filteredRecords; trackBy: trackByFn"
+              [class.table-active]="selectedRecords.has(record.id)"
+            >
+              <td>
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  [checked]="selectedRecords.has(record.id)"
+                  (change)="toggleSelection(record.id, $event)"
+                />
+              </td>
+              <td class="fw-medium">{{ record.customerName }}</td>
+              <td class="font-monospace">{{ record.cardSerialNumber }}</td>
+              <td>{{ record.accountType }}</td>
+              <td>{{ record.dateIssued }}</td>
+              <td>{{ record.cardType }}</td>
+              <td>{{ record.branch }}</td>
+              <td>
+                <span
+                  class="ellipsis-action"
+                  (click)="viewRecordDetails(record)"
+                  >…</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    #recordDetailsModal
+    id="recordDetailsModal"
+    tabindex="-1"
+    aria-labelledby="recordDetailsModalLabel"
+    aria-hidden="true"
+    [class.show]="isModalVisible"
+    [style.display]="isModalVisible ? 'block' : 'none'"
+  >
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 500px">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header border-0 pb-0 position-relative">
+          <h5
+            class="modal-title fw-bold text-dark"
+            id="recordDetailsModalLabel"
+          >
+            Card Details
+          </h5>
+          <button
+            type="button"
+            class="custom-close-btn"
+            (click)="closeModal()"
+            aria-label="Close"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="modal-body card-modal-body" *ngIf="selectedRecord">
+          <table class="details-table w-100 mb-4">
+            <tr>
+              <td class="label">Customer Name</td>
+              <td class="value text-end">{{ selectedRecord.customerName }}</td>
+            </tr>
+            <tr class="divider-row">
+              <td colspan="2"></td>
+            </tr>
+            <tr>
+              <td class="label">Card Serial Number</td>
+              <td class="value text-end">
+                {{ selectedRecord.cardSerialNumber }}
+              </td>
+            </tr>
+            <tr class="divider-row">
+              <td colspan="2"></td>
+            </tr>
+            <tr>
+              <td class="label">Account Type</td>
+              <td class="value text-end">{{ selectedRecord.accountType }}</td>
+            </tr>
+            <tr class="divider-row">
+              <td colspan="2"></td>
+            </tr>
+            <tr>
+              <td class="label">Date Issued</td>
+              <td class="value text-end">{{ selectedRecord.dateIssued }}</td>
+            </tr>
+            <tr class="divider-row">
+              <td colspan="2"></td>
+            </tr>
+            <tr>
+              <td class="label">Card type</td>
+              <td class="value text-end">{{ selectedRecord.cardType }}</td>
+            </tr>
+            <tr class="divider-row">
+              <td colspan="2"></td>
+            </tr>
+            <tr>
+              <td class="label">Branch</td>
+              <td class="value text-end">{{ selectedRecord.branch }}</td>
+            </tr>
+          </table>
+          <button
+            type="button"
+            class="btn btn-primary w-100"
+            style="
+              background: hsl(225, 94%, 14%);
+              border-radius: 6px;
+              font-weight: 500;
+              font-size: 16px;
+              padding: 12px 0;
+            "
+            (click)="closeModal()"
+          >
+            Block card
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal-backdrop fade"
+    *ngIf="isModalVisible"
+    [class.show]="isModalVisible"
+    (click)="closeModal()"
+  ></div>
+</div>

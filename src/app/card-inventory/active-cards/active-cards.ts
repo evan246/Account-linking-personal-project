@@ -3,12 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CardRecord, FilterOptions } from '../../core/interfaces/cardrecord';
 import { CardService } from '../../shared/services/card.service';
+import { SharedModalComponent } from '../../shared/modal.component';
+import { ModalService } from '../../shared/modal.service';
 
 @Component({
   selector: 'app-active-cards',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SharedModalComponent],
   templateUrl: './active-cards.html',
+  styleUrl: './active-cards.scss',
 })
 export class ActiveCardsComponent implements OnInit {
   cardRecords: CardRecord[] = [];
@@ -30,7 +33,10 @@ export class ActiveCardsComponent implements OnInit {
   showDetailModal = false;
   selectedCard: CardRecord | null = null;
 
-  constructor(private cardService: CardService) {}
+  constructor(
+    private cardService: CardService,
+    public modalService: ModalService
+  ) {}
 
   async ngOnInit(): Promise<void> {
     await this.loadCards();
@@ -162,8 +168,13 @@ export class ActiveCardsComponent implements OnInit {
     this.viewRecord(record);
   }
 
+  viewCardDetails(record: CardRecord): void {
+    this.selectedCard = record;
+    this.modalService.open();
+  }
+
   closeModal(): void {
-    this.showDetailModal = false;
+    this.modalService.close();
     this.selectedCard = null;
   }
 

@@ -32,14 +32,39 @@
   </div>
 
   <nav class="menu-section">
-    <div
-      *ngFor="let item of menuItems"
-      class="menu-item d-flex align-items-center py-3 px-3"
-      [class.active]="isActive(item.route, item.exact)"
-      (click)="navigateToRoute(item.route)"
-    >
-      <mat-icon class="menu-icon me-3">{{ item.icon }}</mat-icon>
-      <span class="menu-title">{{ item.title }}</span>
+    <div *ngFor="let item of menuItems" class="menu-item-container">
+      <div
+        class="menu-item d-flex align-items-center py-3 px-3"
+        [class.active]="
+          isActive(item.route, item.exact) ||
+          (item.children && isChildActive(item.route))
+        "
+        (click)="navigateToRoute(item)"
+      >
+        <mat-icon class="menu-icon me-3">{{ item.icon }}</mat-icon>
+        <span class="menu-title">{{ item.title }}</span>
+        <mat-icon
+          *ngIf="item.children && item.children.length > 0"
+          class="dropdown-icon ms-auto"
+          [class.rotated]="item.expanded"
+        >
+          keyboard_arrow_down
+        </mat-icon>
+      </div>
+      <!-- Dropdown submenu -->
+      <div
+        *ngIf="item.children && item.children.length > 0 && item.expanded"
+        class="submenu"
+      >
+        <div
+          *ngFor="let child of item.children"
+          class="submenu-item d-flex align-items-center py-2 px-3"
+          [class.active]="isActive(child.route)"
+          (click)="navigateToChildRoute(child.route)"
+        >
+          <span class="submenu-title">{{ child.title }}</span>
+        </div>
+      </div>
     </div>
   </nav>
 </div>

@@ -14,6 +14,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'card-activation',
+    loadComponent: () =>
+      import('./card-activation/card-activation').then(
+        (m) => m.CardActivationComponent
+      ),
+  },
+  {
     path: 'total-cards',
     loadComponent: () =>
       import('./total-cards/total-cards').then((m) => m.TotalCardsComponent),
@@ -58,6 +65,11 @@ const routes: Routes = [
       import('./initiate-cardrequest/initiate-cardrequest').then(
         (m) => m.InitiateCardrequest
       ),
+  },
+  {
+    path: 'reporting-audit',
+    loadComponent: () =>
+      import('./reporting-audit/reporting-audit').then((m) => m.ReportingAudit),
   },
 ];
 

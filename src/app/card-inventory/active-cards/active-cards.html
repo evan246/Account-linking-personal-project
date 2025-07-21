@@ -1,23 +1,25 @@
-<div class="content-header">
-  <div class="d-flex justify-content-between align-items-center">
-    <div>
-      <input
-        type="text"
-        class="form-control search-input"
-        placeholder="Search for card serial number"
-        [(ngModel)]="searchTerm"
-        (input)="onSearch()"
-        style="width: 300px"
-      />
-    </div>
+<div class="top-search-container">
+  <div class="search-input-wrapper">
+    <i class="bi bi-search search-icon"></i>
+    <input
+      type="text"
+      class="form-control search-input"
+      placeholder="Search for card serial number"
+      [(ngModel)]="searchTerm"
+      (input)="onSearch()"
+    />
   </div>
 </div>
 
-<div class="content-body mt-4">
-  <div class="search-section">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h4 class="mb-0">Active Cards</h4>
-      <div class="d-flex gap-3">
+<div class="table-container">
+  <!-- Header Section -->
+  <div class="table-header">
+    <div class="title-section">
+      <h4 class="table-title">Active Cards</h4>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-controls">
         <select
           class="form-select filter-dropdown"
           [(ngModel)]="filters.accountType"
@@ -53,192 +55,130 @@
 
         <input
           type="date"
-          class="form-control filter-dropdown"
+          class="form-control filter-date"
           [(ngModel)]="filters.dateIssued"
           (change)="onFilterChange()"
           placeholder="Date"
         />
 
-        <button class="btn btn-primary" (click)="onSearch()">Search</button>
+        <button class="btn btn-primary search-btn" (click)="onSearch()">
+          Search
+        </button>
       </div>
     </div>
-
-    <div
-      class="modal fade"
-      [class.show]="showDetailModal"
-      [style.display]="showDetailModal ? 'block' : 'none'"
-      tabindex="-1"
-      role="dialog"
-    >
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title"></h5>
-            <button
-              type="button"
-              class="btn-close"
-              (click)="closeModal()"
-            ></button>
-          </div>
-          <div class="modal-body" *ngIf="selectedCard">
-            <div class="row">
-              <div class="col-md-6">
-                <h6>Card Information</h6>
-                <table class="table table-borderless">
-                  <tr>
-                    <td><strong>Card Number:</strong></td>
-                    <td>{{ selectedCard.cardNumber }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Card Type:</strong></td>
-                    <td>
-                      <span
-                        [class]="getCardTypeBadgeClass(selectedCard.cardType)"
-                      >
-                        {{ selectedCard.cardType }}
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><strong>Status:</strong></td>
-                    <td>
-                      <span class="badge bg-success">{{
-                        selectedCard.status
-                      }}</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><strong>Issued Date:</strong></td>
-                    <td>{{ selectedCard.issuedDate | date : "dd-MM-yyyy" }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Expiry Date:</strong></td>
-                    <td>{{ selectedCard.expiryDate | date : "dd-MM-yyyy" }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Last Activity:</strong></td>
-                    <td>
-                      {{
-                        selectedCard.lastActivity | date : "dd-MM-yyyy HH:mm"
-                      }}
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div class="col-md-6">
-                <h6>Customer Information</h6>
-                <table class="table table-borderless">
-                  <tr>
-                    <td><strong>Customer Name:</strong></td>
-                    <td>{{ selectedCard.customerName }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Email:</strong></td>
-                    <td>{{ selectedCard.customerEmail }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Account Type:</strong></td>
-                    <td>
-                      <span
-                        [class]="
-                          getAccountTypeBadgeClass(
-                            selectedCard.accountType || ''
-                          )
-                        "
-                      >
-                        {{ selectedCard.accountType }}
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><strong>Branch:</strong></td>
-                    <td>{{ selectedCard.branch }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Card ID:</strong></td>
-                    <td>{{ selectedCard.id }}</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              (click)="closeModal()"
-            >
-              Close
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              (click)="editRecord(selectedCard!)"
-            >
-              Edit
-            </button>
-            <button
-              type="button"
-              class="btn btn-warning"
-              (click)="blockRecord(selectedCard!)"
-            >
-              Block
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal-backdrop fade show" *ngIf="showDetailModal"></div>
   </div>
 
-  <div class="data-table">
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                (change)="selectAll($event)"
-              />
-            </th>
-            <th scope="col">Customer Name</th>
-            <th scope="col">Card Serial Number</th>
-            <th scope="col">Account Type</th>
-            <th scope="col">Date Issued</th>
-            <th scope="col">Card Type</th>
-            <th scope="col">Branch</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            *ngFor="let record of filteredRecords; trackBy: trackByFn"
-            [class.table-active]="selectedRecords.has(record.id)"
-          >
-            <td>
-              <input
-                type="checkbox"
-                class="form-check-input"
-                [checked]="selectedRecords.has(record.id)"
-                (change)="toggleSelection(record.id, $event)"
-              />
-            </td>
-            <td class="fw-medium">{{ record.customerName }}</td>
-            <td class="font-monospace">{{ record.cardNumber }}</td>
-            <td>{{ record.accountType }}</td>
-            <td>{{ record.issuedDate | date : "dd-MM-yyyy" }}</td>
-            <td>{{ record.cardType }}</td>
-            <td>{{ record.branch }}</td>
-            <td>…</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <!-- Table Section -->
+  <div class="table-wrapper">
+    <table class="table data-table table-hover">
+      <thead>
+        <tr>
+          <th scope="col" class="checkbox-col">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              (change)="selectAll($event)"
+            />
+          </th>
+          <th scope="col">Customer Name</th>
+          <th scope="col">Card Serial Number</th>
+          <th scope="col">Account Type</th>
+          <th scope="col">Date Issued</th>
+          <th scope="col">Card Type</th>
+          <th scope="col">Branch</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let record of filteredRecords; trackBy: trackByFn"
+          [class.table-active]="selectedRecords.has(record.id)"
+        >
+          <td class="checkbox-col">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              [checked]="selectedRecords.has(record.id)"
+              (change)="toggleSelection(record.id, $event)"
+            />
+          </td>
+          <td class="customer-name">{{ record.customerName }}</td>
+          <td class="account-number">{{ record.cardNumber }}</td>
+          <td class="account-type">{{ record.accountType }}</td>
+          <td class="date-issued">
+            {{ record.issuedDate | date : "dd-MM-yyyy" }}
+          </td>
+          <td class="card-type">{{ record.cardType }}</td>
+          <td class="branch">{{ record.branch }}</td>
+          <td>
+            <i
+              class="bi bi-three-dots-vertical ellipsis-action"
+              style="cursor: pointer"
+              (click)="viewCardDetails(record)"
+              tabindex="0"
+              title="View details"
+            ></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
+
+<!-- Modal -->
+<app-shared-modal>
+  <div modal-title>
+    <h5 class="modal-title fw-bold text-dark">Card Details</h5>
+  </div>
+  <div *ngIf="selectedCard">
+    <table class="details-table w-100 mb-4">
+      <tr>
+        <td class="label">Customer Name</td>
+        <td class="value text-end">{{ selectedCard.customerName }}</td>
+      </tr>
+      <tr class="divider-row">
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td class="label">Card Serial Number</td>
+        <td class="value text-end">{{ selectedCard.cardNumber }}</td>
+      </tr>
+      <tr class="divider-row">
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td class="label">Account Type</td>
+        <td class="value text-end">{{ selectedCard.accountType }}</td>
+      </tr>
+      <tr class="divider-row">
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td class="label">Date Issued</td>
+        <td class="value text-end">
+          {{ selectedCard.issuedDate | date : "dd-MM-yyyy" }}
+        </td>
+      </tr>
+      <tr class="divider-row">
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td class="label">Card type</td>
+        <td class="value text-end">{{ selectedCard.cardType }}</td>
+      </tr>
+      <tr class="divider-row">
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td class="label">Branch</td>
+        <td class="value text-end">{{ selectedCard.branch }}</td>
+      </tr>
+    </table>
+    <button type="button" class="block-btn" (click)="closeModal()">
+      Block card
+    </button>
+  </div>
+</app-shared-modal>
 
 <style>
   td,

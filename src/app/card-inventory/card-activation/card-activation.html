@@ -1,0 +1,17 @@
+<div class="card-request-container">
+  <div class="verification-card">
+    <h4 class="verification-title">Customer Activation</h4>
+    <p class="verification-subtitle">
+      Kindly input customers verifiable means of identification
+    </p>
+    <input
+      type="text"
+      class="verification-input"
+      placeholder="Input customers card number"
+      [(ngModel)]="cardInput"
+    />
+    <button class="verification-btn" (click)="verifyCard()">
+      Activate Card
+    </button>
+  </div>
+</div>
