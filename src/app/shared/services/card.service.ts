@@ -93,7 +93,7 @@ export class CardService {
       cardType: 'Debit',
       status: 'Active',
       issuedDate: new Date('2022-09-20'),
-      expiryDate: new Date('2024-02-20'), // Expiring soon
+      expiryDate: new Date('2024-02-20'),
       customerName: 'David Brown',
       customerEmail: 'david@example.com',
       lastActivity: new Date('2024-01-22'),
@@ -257,7 +257,6 @@ export class CardService {
     return Promise.resolve(false);
   }
 
-  // Card Activation Methods
   activateCard(
     cardId: string,
     activationData: {
@@ -318,7 +317,6 @@ export class CardService {
   }
 
   getActivationHistory(cardId: string): Observable<any[]> {
-    // Mock activation history - in real implementation, this would come from backend
     const mockHistory = [
       {
         id: '1',

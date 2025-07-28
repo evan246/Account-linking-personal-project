@@ -3,12 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { InitiateCardrequestRoutingModule } from './initiate-cardrequest-routing-module';
 
-
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    InitiateCardrequestRoutingModule
-  ]
+  imports: [CommonModule, InitiateCardrequestRoutingModule],
 })
-export class InitiateCardrequestModule { }
+export class InitiateCardrequestModule {}

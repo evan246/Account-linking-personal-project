@@ -16,6 +16,8 @@ export class CardInventoryComponent implements OnInit {
   selectedDate = '';
   searchTerm: string = '';
 
+  constructor(private router: Router) {}
+
   branchOptions: FilterOption[] = [
     { label: 'All Branches', value: 'all' },
     { label: 'Omole Branch-Lagos', value: 'omole' },
@@ -90,11 +92,9 @@ export class CardInventoryComponent implements OnInit {
     },
   ];
 
-  constructor(private router: Router) {}
+  ngOnInit() {}
 
-  ngOnInit(): void {}
-
-  onSearch(): void {
+  onSearch() {
     console.log('Search clicked', {
       branch: this.selectedBranch,
       cardType: this.selectedCardType,
@@ -102,7 +102,7 @@ export class CardInventoryComponent implements OnInit {
     });
   }
 
-  onExport(): void {
+  onExport() {
     console.log('Export clicked');
   }
 
