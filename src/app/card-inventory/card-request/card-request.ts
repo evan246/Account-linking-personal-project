@@ -19,9 +19,9 @@ export class CardRequest {
   verifyCustomer() {
     this.loading = true;
     const userData = {
-      name: 'Olaleyeu Aderonke Rosaline',
-      dob: '30th, December 1872',
-      gender: 'Male',
+      name: 'Anetoh Chidiogo Evangeline',
+      dob: '14th, March 1997',
+      gender: 'Female',
       accountNumber: this.userInput || '1234567890',
     };
     setTimeout(() => {
