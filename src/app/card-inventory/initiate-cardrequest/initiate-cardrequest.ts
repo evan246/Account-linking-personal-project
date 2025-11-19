@@ -34,7 +34,6 @@ export class InitiateCardrequest {
   currentStep = 1;
   showSuccess = false;
 
-  // Instant Issuance form properties
   instantIssuance = {
     customerName: 'Anthony Omolara Ademorin',
     accountNumber: '1234567890',
@@ -46,7 +45,6 @@ export class InitiateCardrequest {
     attachedDocument: null as File | null,
   };
 
-  // Pre-personalized form properties
   prePersonalized = {
     customerName: 'Anthony Omolara Ademorin',
     accountNumber: '1234567890',
@@ -124,11 +122,9 @@ export class InitiateCardrequest {
   selectAccount(account: BankAccount): void {
     if (!account) return;
 
-    // Reset all accounts selection
     if (this.accountInfo) {
       this.accountInfo.accounts.forEach((acc) => (acc.selected = false));
     }
-    // Select the clicked account
     account.selected = true;
   }
 
@@ -213,7 +209,6 @@ export class InitiateCardrequest {
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
-      // Assign to both forms if their file input is visible
       if (document.getElementById('fileInput')) {
         this.instantIssuance.attachedDocument = file;
       }
@@ -224,7 +219,6 @@ export class InitiateCardrequest {
   }
 
   triggerFileUpload() {
-    // Try both file inputs
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;
     const preFileInput = document.getElementById(
       'preFileInput'
@@ -241,7 +235,7 @@ export class InitiateCardrequest {
   }
 
   goHome() {
-    this.router.navigate(['/']); // or your home/dashboard route
+    this.router.navigate(['/']); 
   }
 
   get formTitle(): string {

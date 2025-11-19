@@ -114,7 +114,8 @@ export class Account implements OnInit {
         alert('Failed to initiate card request. Please try again.');
       },
     });
-  }
+  } 
+  
 
   selectAccount(account: BankAccount): void {
     if (!account) return;

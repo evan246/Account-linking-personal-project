@@ -11,7 +11,9 @@ import { CommonModule } from '@angular/common';
 })
 export class CardRequest {
   userInput = '';
-  loading = false;
+  loading = false; 
+   
+ selectedAccountType: string | null = null;
   constructor(private router: Router) {}
 
   verifyCustomer() {
@@ -28,5 +30,14 @@ export class CardRequest {
         state: { user: userData },
       });
     }, 1500);
+  } 
+   selectAccountType(type: string) {
+    this.selectedAccountType = type;
+  } 
+   onInitiateCardRequest() {
+    if (this.selectedAccountType) {
+      this.router.navigate(['/card-inventory/initiate-cardrequest']);
+    }
   }
+
 }

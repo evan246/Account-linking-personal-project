@@ -23,7 +23,8 @@ const routes: Routes = [
   {
     path: 'total-cards',
     loadComponent: () =>
-      import('./total-cards/total-cards').then((m) => m.TotalCardsComponent),
+      import('./total-cards/total-cards').then( 
+        (m) => m.TotalCardsComponent),
   },
   {
     path: 'available-cards',
@@ -31,16 +32,21 @@ const routes: Routes = [
       import('./available-cards/available-cards').then(
         (m) => m.AvailableCardsComponent
       ),
-  },
+  }, 
+
   {
     path: 'issued-cards',
     loadComponent: () =>
-      import('./issued-cards/issued-cards').then((m) => m.IssuedCardsComponent),
-  },
+      import('./issued-cards/issued-cards').then( 
+        (m) => m.IssuedCardsComponent),
+  }, 
+   
+  
   {
     path: 'active-cards',
     loadComponent: () =>
-      import('./active-cards/active-cards').then((m) => m.ActiveCardsComponent),
+      import('./active-cards/active-cards').then( 
+        (m) => m.ActiveCardsComponent),
   },
   {
     path: 'blocked-cards',
@@ -52,12 +58,14 @@ const routes: Routes = [
   {
     path: 'hop-cards',
     loadComponent: () =>
-      import('./hop-cards/hop-cards').then((m) => m.HopCardsComponent),
+      import('./hop-cards/hop-cards').then( 
+        (m) => m.HopCardsComponent),
   },
   {
     path: 'expiry-cards',
     loadComponent: () =>
-      import('./expiry-cards/expiry-cards').then((m) => m.ExpiryCardsComponent),
+      import('./expiry-cards/expiry-cards').then( 
+        (m) => m.ExpiryCardsComponent),
   },
   {
     path: 'initiate-cardrequest',
@@ -69,7 +77,8 @@ const routes: Routes = [
   {
     path: 'reporting-audit',
     loadComponent: () =>
-      import('./reporting-audit/reporting-audit').then((m) => m.ReportingAudit),
+      import('./reporting-audit/reporting-audit').then( 
+        (m) => m.ReportingAudit),
   },
 ];
 
