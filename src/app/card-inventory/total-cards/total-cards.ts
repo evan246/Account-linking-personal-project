@@ -137,7 +137,7 @@ export class TotalCardsComponent implements OnInit {
         this.selectedRecords.add(record.id)
       );
     } else {
-      this.selectedRecords.clear();
+      this.selectedRecords. clear();
     }
   }
 
