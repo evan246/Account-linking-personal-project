@@ -11,4 +11,4 @@ import { AccountInformationRoutingModule } from './account-information-routing-m
     AccountInformationRoutingModule
   ]
 })
-export class AccountInformationModule { }
+export class AccounttInformationModule { }
